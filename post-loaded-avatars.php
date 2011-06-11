@@ -51,7 +51,9 @@ function post_load_avatar($avatar, $id_or_email, $size, $default, $alt) {
 	return $avatar;
 }
 
-function post_load_avatar_scripts() { ?>
+function post_load_avatar_scripts() {
+	if ( get_comments_number($post->ID) > 0 ) {
+	?>
 	<script>
         jQuery(window).load(function() {
                 jQuery('.avatar').each(function(index) {
@@ -60,3 +62,4 @@ function post_load_avatar_scripts() { ?>
         });
     </script>
 <?php }
+}
