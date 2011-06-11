@@ -47,12 +47,15 @@ function post_loaded_avatars() {
 add_action('init', 'post_loaded_avatars' );
 
 function post_load_avatar($avatar, $id_or_email, $size, $default, $alt) {
-	$avatar = str_replace('src','src="' . $default . '" data-src', $avatar);
+	global $post;
+	if ( get_comments_number($post->ID) > 4 ) {
+		$avatar = str_replace('src','src="' . $default . '" data-src', $avatar);
+	}
 	return $avatar;
 }
 
 function post_load_avatar_scripts() {
-	if ( get_comments_number($post->ID) > 0 ) {
+	if ( get_comments_number($post->ID) > 4 ) {
 	?>
 	<script>
         jQuery(window).load(function() {
