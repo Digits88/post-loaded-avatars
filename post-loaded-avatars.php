@@ -59,7 +59,9 @@ function post_load_avatar_scripts() {
 	<script>
         jQuery(window).load(function() {
                 jQuery('.avatar').each(function(index) {
-                    jQuery(this).hide().attr("src",jQuery(this).attr("data-src")).fadeIn();
+					if (jQuery(this).attr("data-src")) {
+                    	jQuery(this).hide().attr("src",jQuery(this).attr("data-src")).fadeIn();
+					}
                 });
         });
     </script>
