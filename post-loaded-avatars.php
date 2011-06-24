@@ -37,25 +37,24 @@ if ( !function_exists( 'add_action' ) ) {
 }
 
 function post_loaded_avatars() {
-	if (!is_admin()) {
 		wp_enqueue_script('jquery');
 		add_filter('get_avatar','post_load_avatar',10,5);
 		add_action('wp_print_footer_scripts', 'post_load_avatar_scripts');
-	}
 }
 
 add_action('init', 'post_loaded_avatars' );
 
 function post_load_avatar($avatar, $id_or_email, $size, $default, $alt) {
 	global $post;
-	if ( get_comments_number($post->ID) > 4 ) {
+	if ( $post && get_comments_number() > 4 ) {
 		$avatar = str_replace('src','src="' . $default . '" data-src', $avatar);
 	}
 	return $avatar;
 }
 
 function post_load_avatar_scripts() {
-	if ( get_comments_number($post->ID) > 4 ) {
+	global $post;
+	if ( $post && get_comments_number() > 4 ) {
 	?>
 	<script>
         jQuery(window).load(function() {
